@@ -92,6 +92,16 @@ class Shape{
         return p3d;
     }
 
+    scale(scalar){
+        for(let i=0; i<this.points.length; i++){
+            let p = this.points[i];
+            p.x *= scalar;
+            p.y *= scalar;
+            p.z *= scalar;
+        }
+
+    }
+
     drawPoints(context, FOV){
         let x3d, y3d, z3d;
         for(let i=0; i<this.points.length; i++){

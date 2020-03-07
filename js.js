@@ -23,15 +23,21 @@ var octoPrism = new Prism(HALF_WIDTH/2, 0, 0, 50, 8, 12);
 octoPrism.makePoints();
 octoPrism.rotate(0.0018, 0.06, 0.001);
 
+var klein = new Klein(HALF_WIDTH/2, 0, 0);
+klein.makePoints();
+klein.scale(20);
+klein.rotate(0.01, 0.01, 0.01);
+
 function draw() {
     context.fillStyle = "rgb(0,0,0)";
     context.fillRect(0, 0, width, height);
 
-    planet_one.drawLines(context, 250);
-    planet_two.drawLines(context, 250);
+    // planet_one.drawLines(context, 250);
+    // planet_two.drawLines(context, 250);
     //cube.drawPoints(context, 200);
-    cube.drawLines(context, 250);
-    octoPrism.drawLines(context, 250);
+    //cube.drawLines(context, 250);
+    // octoPrism.drawLines(context, 250);
+    klein.drawLines(context, 250);
 
     requestAnimationFrame(draw);
 }
