@@ -28,6 +28,11 @@ klein.makePoints();
 klein.scale(20);
 klein.rotate(0.01, 0.01, 0.01);
 
+var torus = new Torus(HALF_WIDTH/2, 0, 0, 5, 3);
+torus.makePoints();
+torus.scale(10);
+torus.rotate(0.01, 0.01, 0.01);
+
 function draw() {
     context.fillStyle = "rgb(0,0,0)";
     context.fillRect(0, 0, width, height);
@@ -37,7 +42,9 @@ function draw() {
     //cube.drawPoints(context, 200);
     //cube.drawLines(context, 250);
     // octoPrism.drawLines(context, 250);
-    klein.drawLines(context, 250);
+    // klein.drawLines(context, 250);
+    torus.drawLines(context, 250);
+
 
     requestAnimationFrame(draw);
 }
