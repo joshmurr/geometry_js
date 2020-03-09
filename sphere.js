@@ -3,7 +3,7 @@ class Sphere extends Shape {
         super(x, y, z);
         this.radius = radius;
         this.slices = 20;
-        this.segments = 20;
+        this.segments = 18;
     }
 
     makePoints(){

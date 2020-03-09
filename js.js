@@ -7,13 +7,9 @@ var context = canvas.getContext("2d");
 canvas.setAttribute("width", width);
 canvas.setAttribute("height", height);
 
-var planet_one = new Sphere(0, 0, 0, 50);
-planet_one.makePoints();
-planet_one.rotate(0.002, 0.005, 0.001);
-
-var planet_two = new Sphere(0, 0, 0, 25);
-planet_two.makePoints();
-planet_two.rotate(0.003, 0.001, 0.008);
+var sphere = new Sphere(0, 0, 0, 50);
+sphere.makePoints();
+sphere.rotate(0.002, 0.005, 0.001);
 
 var cube = new Cube(HALF_WIDTH, 0, 0, 120);
 cube.makePoints();
@@ -26,26 +22,33 @@ octoPrism.rotate(0.0018, 0.06, 0.001);
 var klein = new Klein(HALF_WIDTH/2, 0, 0);
 klein.makePoints();
 klein.scale(20);
-klein.rotate(0.01, 0.01, 0.01);
+klein.rotate(0.005, 0.005, 0.005);
 
-var torus = new Torus(HALF_WIDTH/2, 0, 0, 5, 3);
+var torus = new Torus(HALF_WIDTH, 0, 0, 5, 3);
 torus.makePoints();
-torus.scale(10);
-torus.rotate(0.01, 0.01, 0.01);
+torus.scale(20);
+torus.rotate(0.005, 0.005, 0.005);
+
+var torusPoints = torus.points;
+var kleinPoints = klein.points;
+var doAnimatePoints = false;
 
 function draw() {
-    context.fillStyle = "rgb(0,0,0)";
+    // LINES
+    context.fillStyle = "rgba(0,0,0,1)";
     context.fillRect(0, 0, width, height);
-
-    // planet_one.drawLines(context, 250);
-    // planet_two.drawLines(context, 250);
-    //cube.drawPoints(context, 200);
-    //cube.drawLines(context, 250);
-    // octoPrism.drawLines(context, 250);
-    // klein.drawLines(context, 250);
+    klein.drawLines(context, 250);
     torus.drawLines(context, 250);
+
+    if(doAnimatePoints) torus.animateTo(kleinPoints);
 
 
     requestAnimationFrame(draw);
 }
+
+function animatePoints(){
+    doAnimatePoints = true;
+}
+
+
 requestAnimationFrame(draw);

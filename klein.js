@@ -1,8 +1,8 @@
 class Klein extends Shape {
     constructor(x, y, z){
         super(x, y, z);
-        this.slices = 32;
-        this.segments = 32;
+        this.slices = 16;
+        this.segments = 16;
     }
 
     makePoints(){

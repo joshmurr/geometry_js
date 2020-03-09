@@ -25,6 +25,10 @@ class Shape{
         this.segments = val;
     }
 
+    get points(){
+        return this.points;
+    }
+
     updateSpacing(){
         this.spacing = (Math.PI*2)/this.segments;
     }
@@ -125,6 +129,7 @@ class Shape{
             let x2d = ((x3d * scale) + HALF_WIDTH / 2) + this.x;
             let y2d = ((y3d * scale) + HALF_HEIGHT) + this.y;
 
+            context.beginPath();
             context.lineWidth = scale;
             context.moveTo(x2d, y2d);
             context.lineTo(x2d + scale, y2d);
@@ -170,6 +175,20 @@ class Shape{
             }
             context.lineTo(firstPoint.x + firstScale, firstPoint.y);
             context.stroke();
+        }
+    }
+
+    animateTo(newPoints){
+        for(let i=0; i<this.points.length; i++){
+            let currentPoint = this.points[i];
+            let newPoint = newPoints[i];
+            let dir = newPoint.subtract(currentPoint);
+            if(dir){
+                dir.normalize();
+                dir.multiply(3);
+                currentPoint.add(dir);
+                this.points[i] = currentPoint;
+            }
         }
     }
 }
