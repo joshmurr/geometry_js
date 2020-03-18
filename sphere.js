@@ -2,8 +2,8 @@ class Sphere extends Shape {
     constructor(x, y, z, radius){
         super(x, y, z);
         this.radius = radius;
-        this.slices = 20;
-        this.segments = 18;
+        this.slices = 16;
+        this.segments = 16;
     }
 
     makePoints(){

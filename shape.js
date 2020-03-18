@@ -7,6 +7,7 @@ class Shape{
     xRotation = 0;
     yRotation = 0;
     zRotation = 0;
+    scalar = null;
     radius;
     segments = 4;
     slices = 4;
@@ -23,6 +24,9 @@ class Shape{
     }
     set segments(val){
         this.segments = val;
+    }
+    set scale(val){
+        this.scalar = val;
     }
 
     get points(){
@@ -96,29 +100,31 @@ class Shape{
         return p3d;
     }
 
-    scale(scalar){
+    update(){
         for(let i=0; i<this.points.length; i++){
-            let p = this.points[i];
-            p.x *= scalar;
-            p.y *= scalar;
-            p.z *= scalar;
+            let p3d = this.points[i];
+            if(this.xRotation) p3d = this.rotateX(p3d);
+            if(this.yRotation) p3d = this.rotateY(p3d);
+            if(this.zRotation) p3d = this.rotateZ(p3d);
+            if(this.scalar) {
+                p3d.x *= this.scalar;
+                p3d.y *= this.scalar;
+                p3d.z *= this.scalar;
+            }
         }
-
+        this.scalar = null;
     }
+
 
     drawPoints(context, FOV){
         let x3d, y3d, z3d;
         for(let i=0; i<this.points.length; i++){
-            context.strokeStyle = "red";
+            context.strokeStyle = "white";
             let point3d = this.points[i];
             z3d = point3d.z;
             //z3d -= 1;
             if (z3d < -FOV) z3d += 10;
             point3d.z = z3d;
-
-            point3d = this.rotateX(point3d);
-            point3d = this.rotateY(point3d);
-            point3d = this.rotateZ(point3d);
 
             x3d = point3d.x;
             y3d = point3d.y;
@@ -132,7 +138,7 @@ class Shape{
             context.beginPath();
             context.lineWidth = scale;
             context.moveTo(x2d, y2d);
-            context.lineTo(x2d + scale, y2d);
+            context.lineTo(x2d + scale*2, y2d);
             context.stroke();
         }
     }
@@ -151,10 +157,6 @@ class Shape{
                 //z3d -= 1;
                 if (z3d < -FOV) z3d += 10;
                 point3d.z = z3d;
-
-                point3d = this.rotateX(point3d);
-                point3d = this.rotateY(point3d);
-                point3d = this.rotateZ(point3d);
 
                 x3d = point3d.x;
                 y3d = point3d.y;
@@ -185,7 +187,7 @@ class Shape{
             let dir = newPoint.subtract(currentPoint);
             if(dir){
                 dir.normalize();
-                dir.multiply(3);
+                dir.multiply(0.9);
                 currentPoint.add(dir);
                 this.points[i] = currentPoint;
             }

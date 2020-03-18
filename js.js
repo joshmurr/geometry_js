@@ -7,47 +7,64 @@ var context = canvas.getContext("2d");
 canvas.setAttribute("width", width);
 canvas.setAttribute("height", height);
 
-var sphere = new Sphere(0, 0, 0, 50);
+var sphere = new Sphere(0, 300, 0, 50);
 sphere.makePoints();
-sphere.rotate(0.002, 0.005, 0.001);
+sphere.rotate(0.005, 0.005, 0.005);
 
-var cube = new Cube(HALF_WIDTH, 0, 0, 120);
-cube.makePoints();
-cube.rotate(0.001, 0.002, 0.002);
-
-var octoPrism = new Prism(HALF_WIDTH/2, 0, 0, 50, 8, 12);
-octoPrism.makePoints();
-octoPrism.rotate(0.0018, 0.06, 0.001);
-
-var klein = new Klein(HALF_WIDTH/2, 0, 0);
+var klein = new Klein(HALF_WIDTH, 0, 0);
 klein.makePoints();
-klein.scale(20);
+klein.scale = 20;
 klein.rotate(0.005, 0.005, 0.005);
 
-var torus = new Torus(HALF_WIDTH, 0, 0, 5, 3);
+var torus = new Torus(HALF_WIDTH/2, 0, 0, 5, 3);
 torus.makePoints();
-torus.scale(20);
+torus.scale = 20;
 torus.rotate(0.005, 0.005, 0.005);
 
-var torusPoints = torus.points;
+var torus2 = new Torus(0, 0, 0, 5, 3);
+torus2.makePoints();
+torus2.scale = 20;
+torus2.rotate(0.005, 0.005, 0.005);
+
+var torusPoints = torus2.points;
 var kleinPoints = klein.points;
+var spherePoints = sphere.points;
+
+var p = [torusPoints, kleinPoints, spherePoints];
+var counter = 0;
+
 var doAnimatePoints = false;
 
+var startTime = new Date();
+
 function draw() {
+    let time = new Date();
+    let elapsedTime = (time - startTime) / 1000;
+
     // LINES
     context.fillStyle = "rgba(0,0,0,1)";
     context.fillRect(0, 0, width, height);
-    klein.drawLines(context, 250);
-    torus.drawLines(context, 250);
 
-    if(doAnimatePoints) torus.animateTo(kleinPoints);
+    let v = Math.sin(Math.cos(elapsedTime))*0.01;
+
+    klein.update();
+    torus.update();
+    torus2.update();
+    sphere.update();
+
+    klein.drawPoints(context, 250);
+    torus.drawPoints(context, 250);
+    torus2.drawPoints(context, 250);
+    sphere.drawPoints(context, 250);
+
+    if(counter) torus.animateTo(p[counter%3]);
 
 
     requestAnimationFrame(draw);
 }
 
 function animatePoints(){
-    doAnimatePoints = true;
+    counter++;
 }
 
 
