@@ -28,6 +28,11 @@ class Shape{
     set scale(val){
         this.scalar = val;
     }
+    set points(points){
+        for(let i=0; i<points.length; i++){
+            this.point.push(points[i]);
+        }
+    }
 
     get points(){
         return this.points;
@@ -186,8 +191,9 @@ class Shape{
             let newPoint = newPoints[i];
             let dir = newPoint.subtract(currentPoint);
             if(dir){
+                let m = dir.magnitude;
                 dir.normalize();
-                dir.multiply(0.9);
+                dir.multiply(m*0.015);
                 currentPoint.add(dir);
                 this.points[i] = currentPoint;
             }

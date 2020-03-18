@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width" />
         <!-- <meta http-equiv="refresh" content="30" > -->
         <!--<script type="text/javascript" src="http://livejs.com/live.js"></script>-->
+        <link rel="stylesheet" href="styles.css" type="text/css" media="all">
         <title>Space Wurld</title>
         <style type="text/css" media="screen">
             canvas{
@@ -15,14 +16,23 @@
         </style>
     </head>
     <body>
-        <canvas onclick="animatePoints()"></canvas>
+        <canvas></canvas>
+        <button onclick="makeTorus()">Torus</button>
+        <button onclick="makeKlein()">Klein Bottle</button>
+        <button onclick="makeSphere()">Sphere</button>
+        <button onclick="makeAstroidalEllipsoid()">Astroidal Ellipsoid</button>
+        <button onclick="makeBoysSurface()">Boys Surface</button>
+        <button onclick="makeCylinder()">Cylinder</button>
         <script charset="utf-8" src="shape.js"></script>
+        <script charset="utf-8" src="blank.js"></script>
         <script charset="utf-8" src="vectors.js"></script>
         <script charset="utf-8" src="cube.js"></script>
-        <script charset="utf-8" src="prism.js"></script>
+        <script charset="utf-8" src="cylinder.js"></script>
         <script charset="utf-8" src="sphere.js"></script>
         <script charset="utf-8" src="klein.js"></script>
         <script charset="utf-8" src="torus.js"></script>
+        <script charset="utf-8" src="astroidalEllipsoid.js"></script>
+        <script charset="utf-8" src="boysSurface.js"></script>
         <script charset="utf-8" src="js.js"></script>
     </body>
 </html>
