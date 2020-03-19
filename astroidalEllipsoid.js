@@ -3,14 +3,12 @@ class AstroidalEllipsoid extends Shape {
         // c - Radius from centre of hole to centre of torus
         // a - Radius of tube
         super(x, y, z);
-        this.slices = 16;
-        this.segments = 16;
     }
 
     makePoints(){
         let x, y, z;
 
-        for (var i = 0; i < this.slices; i++) {
+        for (var i = 0; i < this.slices+1; i++) {
             let u = i * Math.PI / this.slices; // theta
 
             for (var j = 0; j < this.segments; j++) {

@@ -1,8 +1,6 @@
 class BoysSurface extends Shape {
     constructor(x, y, z){
         super(x, y, z);
-        this.slices = 16;
-        this.segments = 16;
     }
 
     makePoints(){
@@ -10,7 +8,7 @@ class BoysSurface extends Shape {
 
         let rootTwo = Math.sqrt(2);
 
-        for (var i = 0; i < this.slices; i++) {
+        for (var i = 0; i < this.slices+1; i++) {
             let u = (i * Math.PI / this.slices); // theta
 
             for (var j = 0; j < this.segments; j++) {

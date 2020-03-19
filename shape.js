@@ -4,13 +4,15 @@ class Shape{
     z;
     PHI = 1.618033988749895;
     points = [];
+    indices = [];
+    faces = [];
     xRotation = 0;
     yRotation = 0;
     zRotation = 0;
-    scalar = null;
+    scalar = 100;
     radius;
-    segments = 4;
-    slices = 4;
+    segments = 32;
+    slices = 32;
     spacing = (Math.PI*2)/this.segments;
 
     constructor(x, y, z){
@@ -29,6 +31,7 @@ class Shape{
         this.scalar = val;
     }
     set points(points){
+        this.points = [];
         for(let i=0; i<points.length; i++){
             this.point.push(points[i]);
         }
@@ -42,6 +45,29 @@ class Shape{
         this.spacing = (Math.PI*2)/this.segments;
     }
 
+    makeFaces(){
+        // MAKE INDICES
+        let v = 0;
+        for (var i = 0; i < this.slices; i++) {
+            for (var j = 0; j < this.segments; j++) {
+                let next = (j+1) % this.segments;
+                this.indices.push([v+j, v+j+this.segments, v+next+this.segments, v+next]);
+            }
+            v = v + this.segments;
+        }
+        // MAKE FACES
+        for(let i=0; i<this.indices.length; i++){
+            let collectionIndices = this.indices[i];
+
+            let face = [];
+            for(let j=0; j<collectionIndices.length; j++){
+                let ind = collectionIndices[j];
+                face.push(this.points[ind]);
+            }
+            this.faces.push(face);
+        }
+    }
+
     rotate(thetaX, thetaY, thetaZ){
         this.xRotation = thetaX;
         this.yRotation = thetaY;
@@ -49,13 +75,13 @@ class Shape{
     }
 
     rotateX(p3d) {
-        let x = p3d.x; 
-        let z = p3d.z; 
+        let x = p3d.x;
+        let z = p3d.z;
 
         let cosRY = Math.cos(this.xRotation);
         let sinRY = Math.sin(this.xRotation);
 
-        let tempz = z; 
+        let tempz = z;
         let tempx = x;
 
         x = (tempx*cosRY)+(tempz*sinRY);
@@ -74,7 +100,7 @@ class Shape{
         let cosRX = Math.cos(this.yRotation);
         let sinRX = Math.sin(this.yRotation);
 
-        let tempz = z; 
+        let tempz = z;
         let tempy = y;
 
         y = (tempy*cosRX)+(tempz*sinRX);
@@ -93,7 +119,7 @@ class Shape{
         let cosRZ = Math.cos(this.zRotation);
         let sinRZ = Math.sin(this.zRotation);
 
-        let tempx = x; 
+        let tempx = x;
         let tempy = y;
 
         x = (tempx*cosRZ)+(tempy*sinRZ);
@@ -158,6 +184,47 @@ class Shape{
 
             for(let j=0; j<this.segments; j++){
                 let point3d = this.points[j + i*this.segments];
+                z3d = point3d.z;
+                //z3d -= 1;
+                if (z3d < -FOV) z3d += 10;
+                point3d.z = z3d;
+
+                x3d = point3d.x;
+                y3d = point3d.y;
+                z3d = point3d.z + this.z;
+
+                let scale = (FOV / (FOV + z3d));
+
+                let x2d = ((x3d * scale) + HALF_WIDTH / 2) + this.x;
+                let y2d = ((y3d * scale) + HALF_HEIGHT) + this.y;
+
+                if(!j) {
+                    firstPoint = new Vec2d(x2d, y2d);
+                    firstScale = scale;
+                }
+
+                context.lineWidth = scale;
+                context.lineTo(x2d + scale, y2d);
+            }
+            context.lineTo(firstPoint.x + firstScale, firstPoint.y);
+            context.stroke();
+        }
+    }
+
+    drawFaces(context, FOV){
+        let x3d, y3d, z3d;
+        for(let i=0; i<this.faces.length; i++){
+            let face = this.faces[i];
+
+
+            let firstPoint;
+            let firstScale;
+            context.beginPath();
+            context.strokeStyle = "blue";
+
+            for(let j=0; j<face.length; j++){
+                let point3d = face[j];
+                if(point3d == null) break;
                 z3d = point3d.z;
                 //z3d -= 1;
                 if (z3d < -FOV) z3d += 10;

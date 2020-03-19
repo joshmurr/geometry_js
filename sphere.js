@@ -2,17 +2,20 @@ class Sphere extends Shape {
     constructor(x, y, z, radius){
         super(x, y, z);
         this.radius = radius;
-        this.slices = 16;
-        this.segments = 16;
     }
 
     makePoints(){
-        this.updateSpacing();
-        for(let i=0; i<this.slices; i++){
-            let z = this.radius*2 * Math.cos(this.spacing/2 * i);
-            let s = this.radius*2 * Math.sin(this.spacing/2 * i);
+        let x, y, z;
+        for(let i=0; i<this.slices+1; i++){
+            let u = i * Math.PI / this.slices;
             for(let j=0; j<this.segments; j++){
-                let p = new Vec3d(Math.cos(this.spacing*j)*s, Math.sin(this.spacing*j)*s, z);
+                let v = j * 2 * Math.PI / this.slices;
+
+                x = Math.sin(u) * Math.cos(v);
+                y = Math.cos(u);
+                z = -Math.sin(u) * Math.sin(v);
+
+                let p = new Vec3d(x, y, z);
                 this.points.push(p);
             }
         }

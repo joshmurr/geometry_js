@@ -8,42 +8,35 @@ canvas.setAttribute("width", width);
 canvas.setAttribute("height", height);
 
 var sphere = new Sphere(0, 300, 0, 50);
-sphere.slices = 32;
-sphere.segments = 32;
 sphere.makePoints();
+sphere.makeFaces();
 sphere.rotate(0.005, 0.005, 0.005);
 
 var klein = new Klein(HALF_WIDTH, 0, 0);
-klein.slices = 32;
-klein.segments = 32;
 klein.makePoints();
+klein.makeFaces();
 klein.scale = 20;
 klein.rotate(0.005, 0.005, 0.005);
 
 var torus = new Torus(HALF_WIDTH/2, 0, 0, 5, 3);
-torus.slices = 32;
-torus.segments = 32;
 torus.makePoints();
+torus.makeFaces();
 torus.scale = 20;
 torus.rotate(0.005, 0.005, 0.005);
 
 var astroidalEllipsoid = new AstroidalEllipsoid(0, 0, 0);
-astroidalEllipsoid.slices = 32;
-astroidalEllipsoid.segments = 32;
 astroidalEllipsoid.makePoints();
-astroidalEllipsoid.scale = 200;
+astroidalEllipsoid.makeFaces();
 astroidalEllipsoid.rotate(0.005, 0.005, 0.005);
 
 var boysSurface = new BoysSurface(0, 0, 0);
-boysSurface.slices = 32;
-boysSurface.segments = 32;
 boysSurface.makePoints();
-boysSurface.scale = 100;
+boysSurface.makeFaces();
 boysSurface.rotate(0.005, 0.005, 0.005);
 
 var cylinder = new Cylinder(0, 0, 0, 1, 2);
 cylinder.makePoints();
-cylinder.scale = 100;
+cylinder.makeFaces();
 cylinder.rotate(0.005, 0.005, 0.005);
 
 
@@ -55,9 +48,6 @@ var boysSurfacePoints = boysSurface.points;
 var cylinderPoints = cylinder.points;
 
 var blankShape = new Blank(HALF_WIDTH/2, 0, 0);
-blankShape.slices = 32;
-blankShape.segments = 32;
-blankShape.scale = 20;
 blankShape.makePoints();
 
 var p = [torusPoints, kleinPoints, spherePoints, astroidalEllipsoidPoints, boysSurfacePoints, cylinderPoints];
@@ -81,7 +71,13 @@ function draw() {
     cylinder.update();
     blankShape.update();
 
-    blankShape.drawLines(context, 250);
+    // sphere.drawFaces(context, 250);
+    klein.drawFaces(context, 250);
+    // torus.drawFaces(context, 250);
+    // cylinder.drawFaces(context, 250);
+    // boysSurface.drawFaces(context, 250);
+    // astroidalEllipsoid.drawFaces(context, 250);
+    // blankShape.drawPoints(context, 250);
 
     blankShape.animateTo(p[counter]);
 

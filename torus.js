@@ -3,8 +3,6 @@ class Torus extends Shape {
         // c - Radius from centre of hole to centre of torus
         // a - Radius of tube
         super(x, y, z);
-        this.slices = 16;
-        this.segments = 16;
         this.c = c;
         this.a = a;
     }
@@ -12,7 +10,7 @@ class Torus extends Shape {
     makePoints(){
         let x, y, z;
 
-        for (var i = 0; i < this.slices; i++) {
+        for (var i = 0; i < this.slices+1; i++) {
             let u = i * 2 * Math.PI / this.slices; // theta
 
             for (var j = 0; j < this.segments; j++) {

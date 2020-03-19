@@ -1,14 +1,12 @@
 class Klein extends Shape {
     constructor(x, y, z){
         super(x, y, z);
-        this.slices = 16;
-        this.segments = 16;
     }
 
     makePoints(){
         let x, y, z;
 
-        for (var i = 0; i < this.slices; i++) {
+        for (var i = 0; i < this.slices+1; i++) {
             let theta = i * Math.PI / this.slices;
             let u = theta * 2;
 
