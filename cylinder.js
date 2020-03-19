@@ -6,7 +6,6 @@ class Cylinder extends Shape {
     }
 
     makePoints(){
-        this.updateSpacing();
         let x, y, z;
 
         for(let i=0; i<this.slices+1; i++){

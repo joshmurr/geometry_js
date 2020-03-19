@@ -1,5 +1,33 @@
+* {
+    margin: none;
+    padding: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: medium;
+    text-align: left;
+}
+
+#menu{
+    position: absolute;
+    width: 200px;
+    /* height: 100%; */
+    background-color: gray;
+    left: 0px;
+    top: 0px;
+}
 button {
     position: relative;
-    display: inline;
+    display: block;
     background-color: white;
+    border: none;
+    line-height: 2em;
+    width: 100%;    
 }
+
+button:hover{
+    background-color: blue;
+}
+
+#menu > button.title{
+    background-color: gray;
+}
+    

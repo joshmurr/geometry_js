@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width" />
         <!-- <meta http-equiv="refresh" content="30" > -->
         <!--<script type="text/javascript" src="http://livejs.com/live.js"></script>-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="styles.css" type="text/css" media="all">
         <title>Space Wurld</title>
         <style type="text/css" media="screen">
@@ -17,12 +18,19 @@
     </head>
     <body>
         <canvas></canvas>
-        <button onclick="makeTorus()">Torus</button>
-        <button onclick="makeKlein()">Klein Bottle</button>
-        <button onclick="makeSphere()">Sphere</button>
-        <button onclick="makeAstroidalEllipsoid()">Astroidal Ellipsoid</button>
-        <button onclick="makeBoysSurface()">Boys Surface</button>
-        <button onclick="makeCylinder()">Cylinder</button>
+        <nav id="menu">
+            <button class="title">Surface</button>
+            <button onclick="makeTorus()">Torus</button>
+            <button onclick="makeKlein()">Klein Bottle</button>
+            <button onclick="makeSphere()">Sphere</button>
+            <button onclick="makeAstroidalEllipsoid()">Astroidal Ellipsoid</button>
+            <button onclick="makeBoysSurface()">Boys Surface</button>
+            <button onclick="makeCylinder()">Cylinder</button>
+            <button class="title">Drawing Style</button>
+            <button id="linesBtn" onclick="toggleLines()">Lines</button>
+            <button id="pointsBtn" onclick="togglePoints()">Points</button>
+            <button id="wireframeBtn" onclick="toggleWireframe()">Wireframe</button>
+        </nav>
         <script charset="utf-8" src="shape.js"></script>
         <script charset="utf-8" src="blank.js"></script>
         <script charset="utf-8" src="vectors.js"></script>

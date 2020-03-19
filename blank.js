@@ -4,7 +4,6 @@ class Blank extends Shape {
     }
 
     makePoints(){
-        this.updateSpacing();
         for(let i=0; i<this.slices+1; i++){
             for(let j=0; j<this.segments; j++){
                 let p = new Vec3d(1, 1, 1);
