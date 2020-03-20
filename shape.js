@@ -153,7 +153,6 @@ class Shape{
     }
 
     update(){
-        let scaled = false;
         let target = [];
         for(let i=0; i<this._points.length; i++){
             // UPDATE HOME POINTS
@@ -162,6 +161,10 @@ class Shape{
             if(this.xRotation) p3d = this.rotateX(p3d);
             if(this.yRotation) p3d = this.rotateY(p3d);
             if(this.zRotation) p3d = this.rotateZ(p3d);
+
+            // p3d.x += this._x;
+            // p3d.y += this._y;
+            // p3d.z += this._x;
 
             // UPDATE CURRENT POINTS
             let currentPoint = this._points[i];
@@ -173,11 +176,6 @@ class Shape{
                 currentPoint.add(dir);
                 this._points[i] = currentPoint;
             }
-        }
-        if(scaled){
-            console.log("Swapping scales");
-            this.TMPscale = this.scale;
-            this.scale = 1;
         }
     }
 

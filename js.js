@@ -8,6 +8,8 @@ var wireframeBtn = document.getElementById("wireframeBtn");
 var xInput = document.getElementById("X");
 var yInput = document.getElementById("Y");
 var zInput = document.getElementById("Z");
+var slicesInput = document.getElementById("slices");
+var segmentsInput = document.getElementById("segments");
 
 var canvas = document.querySelector("canvas");
 var width = window.innerWidth;
@@ -96,6 +98,14 @@ function setLocation(){
     blankShape.x = parseInt(xInput.value, 10);
     blankShape.y = parseInt(yInput.value, 10);
     blankShape.z = parseInt(zInput.value, 10);
+}
+
+function setSlices(){
+    blankShape.slices = parseInt(slicesInput.value, 10);
+}
+
+function setSegments(){
+    blankShape.segments = parseInt(segmentsInput.value, 10);
 }
 
 function makeSphere(){

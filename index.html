@@ -30,12 +30,15 @@
             <button id="linesBtn" onclick="toggleLines()">Lines</button>
             <button id="pointsBtn" onclick="togglePoints()">Points</button>
             <button id="wireframeBtn" onclick="toggleWireframe()">Wireframe</button>
-            <button class="title">Points</button>
-            <input type="number" name="Slices" id="slices" value="32" onchange="setLocation()">
-            <input type="number" name="Segments" id="segments" value="32" onchange="setLocation()">
+            <!-- <button class="title">Points</button> -->
+            <!-- <input type="number" name="Slices" id="slices" class="wide" value="32" onchange="setSlices()"> -->
+            <!-- <input type="number" name="Segments" id="segments" class="wide"  value="32" onchange="setSegments()"> -->
             <button class="title">Position</button>
+            <button class="small">X</button>
             <input type="number" name="X" id="X" value="0" onchange="setLocation()">
+            <button class="small">Y</button>
             <input type="number" name="Y" id="Y" value="0" onchange="setLocation()">
+            <button class="small">Z</button>
             <input type="number" name="Z" id="Z" value="0" onchange="setLocation()">
         </nav>
         <script charset="utf-8" src="shape.js"></script>

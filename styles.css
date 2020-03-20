@@ -20,7 +20,7 @@ button {
     background-color: white;
     border: none;
     line-height: 2em;
-    width: 100%;    
+    width: 100%;
 }
 
 button:hover{
@@ -30,4 +30,37 @@ button:hover{
 #menu > button.title{
     background-color: gray;
 }
-    
+
+#menu > button.small{
+    background-color: gray;
+    width: 99px;
+    display: inline;
+    float: left;
+}
+
+#menu > input {
+    border: none;
+    display: inline;
+    float: left;
+    line-height: 2em;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 42%;
+}
+
+#menu > input.wide {
+    width:92%;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* margin: 0; */
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
