@@ -1,56 +1,76 @@
 class Shape{
-    x;
-    y;
-    z;
-    PHI = 1.618033988749895;
-    points = [];
-    indices = [];
-    faces = [];
-    faceColours = [];
-    xRotation = 0;
-    yRotation = 0;
-    zRotation = 0;
-    scalar = 100;
-    radius;
-    segments = 32;
-    slices = 32;
 
     constructor(x, y, z){
+        // INVOKE SETTERS
         this.x = x;
         this.y = y;
         this.z = z;
+        this.points = [];
+        this.home = [];
+        this.scale = 100;
+        this.TMPscale = 1;
+        this.slices = 32;
+        this.segments = 32;
+        // WITHOUT SETTERS
+        this.faces = [];
+        this.indices = [];
+        this.faceColours = [];
     }
-
+    set x(val){
+        console.log("Setting x: " + val);
+        this._x = val;
+    }
+    set y(val){
+        this._y = val;
+    }
+    set z(val){
+        this._z = val;
+    }
     set slices(val){
-        this.slices = val;
+        this._slices = val;
     }
     set segments(val){
-        this.segments = val;
+        this._segments = val;
     }
     set scale(val){
-        this.scalar = val;
+        this._scalar = val;
+    }
+    set TMPscale(val){
+        this._TMPscalar = val;
     }
     set points(points){
-        this.points = [];
+        this._points = [];
         for(let i=0; i<points.length; i++){
-            this.point.push(points[i]);
+            this._points.push(points[i]);
+        }
+    }
+    set home(points){
+        this._home = [];
+        for(let i=0; i<points.length; i++){
+            this._home.push(points[i]);
         }
     }
 
     get points(){
-        return this.points;
+        return this._points;
+    }
+    get scale(){
+        return this._scalar;
+    }
+    get TMPscale(){
+        return this._TMPscalar;
     }
 
     makeFaces(){
         // MAKE INDICES
         let v = 0;
-        for (var i = 0; i < this.slices; i++) {
-            for (var j = 0; j < this.segments; j++) {
-                let next = (j+1) % this.segments;
-                this.indices.push([v+j, v+j+this.segments, v+next+this.segments, v+next]);
+        for (var i = 0; i < this._slices; i++) {
+            for (var j = 0; j < this._segments; j++) {
+                let next = (j+1) % this._segments;
+                this.indices.push([v+j, v+j+this._segments, v+next+this._segments, v+next]);
                 this.faceColours.push(Math.floor(Math.random()*255));
             }
-            v = v + this.segments;
+            v = v + this._segments;
         }
         // MAKE FACES
         for(let i=0; i<this.indices.length; i++){
@@ -59,7 +79,7 @@ class Shape{
             let face = [];
             for(let j=0; j<collectionIndices.length; j++){
                 let ind = collectionIndices[j];
-                face.push(this.points[ind]);
+                face.push(this._points[ind]);
             }
             this.faces.push(face);
         }
@@ -70,6 +90,10 @@ class Shape{
         this.yRotation = thetaY;
         this.zRotation = thetaZ;
     }
+
+    // scale(p, s){
+        // return new Vec3d(p.x*s, p.y*s, p.z*s);
+    // }
 
     rotateX(p3d) {
         let x = p3d.x;
@@ -129,26 +153,40 @@ class Shape{
     }
 
     update(){
-        for(let i=0; i<this.points.length; i++){
-            let p3d = this.points[i];
+        let scaled = false;
+        let target = [];
+        for(let i=0; i<this._points.length; i++){
+            // UPDATE HOME POINTS
+            let p3d = this._home[i];
+
             if(this.xRotation) p3d = this.rotateX(p3d);
             if(this.yRotation) p3d = this.rotateY(p3d);
             if(this.zRotation) p3d = this.rotateZ(p3d);
-            if(this.scalar) {
-                p3d.x *= this.scalar;
-                p3d.y *= this.scalar;
-                p3d.z *= this.scalar;
+
+            // UPDATE CURRENT POINTS
+            let currentPoint = this._points[i];
+            let dir = p3d.subtract(currentPoint);
+            if(dir){
+                let m = dir.magnitude;
+                dir.normalize();
+                dir.multiply(m*0.015);
+                currentPoint.add(dir);
+                this._points[i] = currentPoint;
             }
         }
-        this.scalar = null;
+        if(scaled){
+            console.log("Swapping scales");
+            this.TMPscale = this.scale;
+            this.scale = 1;
+        }
     }
 
 
     drawPoints(context, FOV){
         let x3d, y3d, z3d;
-        for(let i=0; i<this.points.length; i++){
+        for(let i=0; i<this._points.length; i++){
             context.strokeStyle = "white";
-            let point3d = this.points[i];
+            let point3d = this._points[i];
             z3d = point3d.z;
             //z3d -= 1;
             if (z3d < -FOV) z3d += 10;
@@ -156,12 +194,12 @@ class Shape{
 
             x3d = point3d.x;
             y3d = point3d.y;
-            z3d = point3d.z + this.z;
+            z3d = point3d.z + this._z;
 
             let scale = (FOV / (FOV + z3d));
 
-            let x2d = ((x3d * scale) + HALF_WIDTH / 2) + this.x;
-            let y2d = ((y3d * scale) + HALF_HEIGHT) + this.y;
+            let x2d = ((x3d * scale) + HALF_WIDTH) + this._x;
+            let y2d = ((y3d * scale) + HALF_HEIGHT) + this._y;
 
             context.beginPath();
             context.lineWidth = scale;
@@ -173,14 +211,14 @@ class Shape{
 
     drawLines(context, FOV){
         let x3d, y3d, z3d;
-        for(let i=0; i<this.slices+1; i++){
+        for(let i=0; i<this._slices+1; i++){
             let firstPoint;
             let firstScale;
             context.beginPath();
             context.strokeStyle = "gray";
 
-            for(let j=0; j<this.segments; j++){
-                let point3d = this.points[j + i*this.segments];
+            for(let j=0; j<this._segments; j++){
+                let point3d = this._points[j + i*this._segments];
                 z3d = point3d.z;
                 //z3d -= 1;
                 if (z3d < -FOV) z3d += 10;
@@ -188,12 +226,12 @@ class Shape{
 
                 x3d = point3d.x;
                 y3d = point3d.y;
-                z3d = point3d.z + this.z;
+                z3d = point3d.z + this._z;
 
                 let scale = (FOV / (FOV + z3d));
 
-                let x2d = ((x3d * scale) + HALF_WIDTH / 2) + this.x;
-                let y2d = ((y3d * scale) + HALF_HEIGHT) + this.y;
+                let x2d = ((x3d * scale) + HALF_WIDTH) + this._x;
+                let y2d = ((y3d * scale) + HALF_HEIGHT) + this._y;
 
                 if(!j) {
                     firstPoint = new Vec2d(x2d, y2d);
@@ -229,12 +267,12 @@ class Shape{
 
                 x3d = point3d.x;
                 y3d = point3d.y;
-                z3d = point3d.z + this.z;
+                z3d = point3d.z + this._z;
 
                 let scale = (FOV / (FOV + z3d));
 
-                let x2d = ((x3d * scale) + HALF_WIDTH / 2) + this.x;
-                let y2d = ((y3d * scale) + HALF_HEIGHT) + this.y;
+                let x2d = ((x3d * scale) + HALF_WIDTH) + this._x;
+                let y2d = ((y3d * scale) + HALF_HEIGHT) + this._y;
 
                 if(!j) {
                     firstPoint = new Vec2d(x2d, y2d);
@@ -272,12 +310,12 @@ class Shape{
 
                 x3d = point3d.x;
                 y3d = point3d.y;
-                z3d = point3d.z + this.z;
+                z3d = point3d.z + this._z;
 
                 let scale = (FOV / (FOV + z3d));
 
-                let x2d = ((x3d * scale) + HALF_WIDTH / 2) + this.x;
-                let y2d = ((y3d * scale) + HALF_HEIGHT) + this.y;
+                let x2d = ((x3d * scale) + HALF_WIDTH) + this._x;
+                let y2d = ((y3d * scale) + HALF_HEIGHT) + this._y;
 
                 if(!j) {
                     firstPoint = new Vec2d(x2d, y2d);
@@ -295,8 +333,8 @@ class Shape{
     }
 
     animateTo(newPoints){
-        for(let i=0; i<this.points.length; i++){
-            let currentPoint = this.points[i];
+        for(let i=0; i<this._points.length; i++){
+            let currentPoint = this._points[i];
             let newPoint = newPoints[i];
             let dir = newPoint.subtract(currentPoint);
             if(dir){
@@ -304,7 +342,7 @@ class Shape{
                 dir.normalize();
                 dir.multiply(m*0.015);
                 currentPoint.add(dir);
-                this.points[i] = currentPoint;
+                this._points[i] = currentPoint;
             }
         }
     }

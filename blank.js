@@ -4,10 +4,10 @@ class Blank extends Shape {
     }
 
     makePoints(){
-        for(let i=0; i<this.slices+1; i++){
-            for(let j=0; j<this.segments; j++){
+        for(let i=0; i<this._slices+1; i++){
+            for(let j=0; j<this._segments; j++){
                 let p = new Vec3d(1, 1, 1);
-                this.points.push(p);
+                this._points.push(p);
             }
         }
     }

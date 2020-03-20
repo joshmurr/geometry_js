@@ -49,24 +49,6 @@ class Vec3d{
         this.z = _z;
     }
 
-    /*
-    add: function(v2) {
-        return vector.create(this._x+v2.getX(), this._y+v2.getY());
-    },
-
-    subtract: function(v2) {
-        return vector.create(this._x-v2.getX(), this._y-v2.getY());
-    },
-
-    multiply: function(val){
-        return vector.create(this._x*val, this._y*val);
-    },
-
-    divide: function(val){
-        return vector.create(this._x/val, this._y/val);
-    },
-    */
-
     add(p){
         this.x += p.x;
         this.y += p.y;
@@ -93,5 +75,8 @@ class Vec3d{
         this.y /= m;
         this.z /= m;
     }
-
+    
+    copy(){
+        return new Vec3d(this.x, this.y, this.z);
+    }
 }
