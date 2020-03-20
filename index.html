@@ -19,6 +19,8 @@
     <body>
         <canvas></canvas>
         <nav id="menu">
+            <button class="title">Parametric Surfaces</button>
+            <button class="title" id="aboutBtn" onclick="toggleAbout()">About</button>
             <button class="title">Surface</button>
             <button onclick="makeTorus()">Torus</button>
             <button onclick="makeKlein()">Klein Bottle</button>
@@ -43,6 +45,17 @@
             <button class="small">Z</button>
             <input type="number" name="Z" id="Z" value="0" onchange="setLocation()">
         </nav>
+        <div id="aboutContainer">
+            <p>This is an experiment in implementing parametric formulae in Javascript as a means to help me understand the process of generating a 3D mesh.</p>
+            <p>The render process is very simple: the points are drawn to the canvas as lines which are scaled by their z-coordinate; the vectors are all 3D vectors; there are no matrix transformations.</p>
+            <p>This is pretty much at the limit of what can be done without re-building the 3D engine into something more sophisticated.</p>
+            <p>For more information see:</p>
+            <ul>
+                <li><a href="https://prideout.net/blog/svg_wireframes/" target="_blank">3D Wireframes in SVG</a></li>
+                <li><a href="https://mathworld.wolfram.com/topics/AlgebraicSurfaces.html" target="_blank">Algebraic Surfaces</a></li>
+            </ul>
+            <p>Made by <a href="http://www.joshmurr.com" target="_blank">Josh Murr</a></p> 
+        </div>
         <script charset="utf-8" src="shape.js"></script>
         <script charset="utf-8" src="blank.js"></script>
         <script charset="utf-8" src="vectors.js"></script>

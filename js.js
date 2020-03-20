@@ -2,7 +2,9 @@ var drawPoints = false;
 var drawLines = false;
 var drawWireframe = false;
 var animatePoints = false;
+var showAbout = false;
 
+var aboutBox = document.getElementById("aboutContainer");
 var linesBtn = document.getElementById("linesBtn");
 var pointsBtn = document.getElementById("pointsBtn");
 var wireframeBtn = document.getElementById("wireframeBtn");
@@ -147,6 +149,12 @@ function makeCylinder(){
 
 function makeKissSurface(){
     blankShape.home = kissPoints;
+}
+
+function toggleAbout(){
+    showAbout = !showAbout;
+    if(showAbout) aboutBox.style.display = "block";
+    else aboutBox.style.display = "none";
 }
 
 
