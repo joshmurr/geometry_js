@@ -79,4 +79,10 @@ class Vec3d{
     copy(){
         return new Vec3d(this.x, this.y, this.z);
     }
+
+    replace(p){
+        this.x = p.x;
+        this.y = p.y;
+        this.z = p.z;
+    }
 }

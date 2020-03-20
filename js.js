@@ -1,6 +1,7 @@
 var drawPoints = false;
 var drawLines = false;
 var drawWireframe = false;
+var animatePoints = false;
 
 var linesBtn = document.getElementById("linesBtn");
 var pointsBtn = document.getElementById("pointsBtn");
@@ -38,12 +39,16 @@ boysSurface.makePoints();
 var cylinder = new Cylinder(0, 0, 0, 1, 2);
 cylinder.makePoints();
 
+var kiss = new KissSurface(0, 0, 0);
+kiss.makePoints();
+
 var torusPoints = torus.points;
 var kleinPoints = klein.points;
 var spherePoints = sphere.points;
 var astroidalEllipsoidPoints = astroidalEllipsoid.points;
 var boysSurfacePoints = boysSurface.points;
 var cylinderPoints = cylinder.points;
+var kissPoints = kiss.points;
 
 var blankShape = new Blank(0, 0, 0);
 blankShape.makePoints();
@@ -51,13 +56,14 @@ blankShape.makeFaces();
 blankShape.rotate(0.005, 0.005, 0.005);
 blankShape.home = kleinPoints;
 
-var p = [torusPoints, kleinPoints, spherePoints, astroidalEllipsoidPoints, boysSurfacePoints, cylinderPoints];
+// var p = [torusPoints, kleinPoints, spherePoints, astroidalEllipsoidPoints, boysSurfacePoints, cylinderPoints];
 // var meshes = [torus, klein, sphere, astroidalEllipsoid, boysSurface, cylinder];
 var counter = 0;
 
 var startTime = new Date();
 
 togglePoints();
+toggleAnimate();
 
 function draw() {
     let time = new Date();
@@ -92,6 +98,13 @@ function toggleWireframe(){
     drawWireframe = !drawWireframe;
     if(drawWireframe) wireframeBtn.style.backgroundColor = "red";
     else wireframeBtn.style.backgroundColor = "white";
+}
+
+function toggleAnimate(){
+    animatePoints = !animatePoints;
+    blankShape.animate = animatePoints;
+    if(animatePoints) animateBtn.style.backgroundColor = "blue";
+    else animateBtn.style.backgroundColor = "white";
 }
 
 function setLocation(){
@@ -130,6 +143,10 @@ function makeBoysSurface(){
 
 function makeCylinder(){
     blankShape.home = cylinderPoints;
+}
+
+function makeKissSurface(){
+    blankShape.home = kissPoints;
 }
 
 

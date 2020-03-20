@@ -1,4 +1,7 @@
 class Shape{
+    faces = [];
+    indices = [];
+    faceColours = [];
 
     constructor(x, y, z){
         // INVOKE SETTERS
@@ -9,12 +12,8 @@ class Shape{
         this.home = [];
         this.scale = 100;
         this.TMPscale = 1;
-        this.slices = 32;
-        this.segments = 32;
-        // WITHOUT SETTERS
-        this.faces = [];
-        this.indices = [];
-        this.faceColours = [];
+        this.slices = 8;
+        this.segments = 8;
     }
     set x(val){
         console.log("Setting x: " + val);
@@ -50,15 +49,27 @@ class Shape{
             this._home.push(points[i]);
         }
     }
+    set animate(val){
+        this._animate = val;
+    }
 
     get points(){
         return this._points;
+    }
+    get home(){
+        return this._home;
     }
     get scale(){
         return this._scalar;
     }
     get TMPscale(){
         return this._TMPscalar;
+    }
+    get slices(){
+        return this._slices;
+    }
+    get segments(){
+        return this._segments;
     }
 
     makeFaces(){
@@ -166,15 +177,19 @@ class Shape{
             // p3d.y += this._y;
             // p3d.z += this._x;
 
-            // UPDATE CURRENT POINTS
-            let currentPoint = this._points[i];
-            let dir = p3d.subtract(currentPoint);
-            if(dir){
-                let m = dir.magnitude;
-                dir.normalize();
-                dir.multiply(m*0.015);
-                currentPoint.add(dir);
-                this._points[i] = currentPoint;
+            // ANIMATE TO HOME POINTS
+            if(this._animate){
+                // let currentPoint = this._points[i];
+                let dir = p3d.subtract(this._points[i]);
+                if(dir){
+                    let m = dir.magnitude;
+                    dir.normalize();
+                    dir.multiply(m*0.015);
+                    this._points[i].add(dir);
+                    // this._points[i] = currentPoint;
+                }
+            } else {
+                this._points[i].replace(p3d);
             }
         }
     }
