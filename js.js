@@ -4,6 +4,12 @@ var drawWireframe = false;
 var animatePoints = false;
 var showAbout = false;
 
+if(window.attachEvent){
+    window.attachEvent("onresize", resizeCanvas);
+} else if(window.addEventListener){
+    window.addEventListener("resize", resizeCanvas);
+}
+
 var aboutBox = document.getElementById("aboutContainer");
 var linesBtn = document.getElementById("linesBtn");
 var pointsBtn = document.getElementById("pointsBtn");
@@ -15,13 +21,19 @@ var slicesInput = document.getElementById("slices");
 var segmentsInput = document.getElementById("segments");
 
 var canvas = document.querySelector("canvas");
-var width = window.innerWidth;
-var height = window.innerHeight;
-var HALF_WIDTH = width/2;
-var HALF_HEIGHT = height/2;
+var HALF_WIDTH, HALF_HEIGHT, width, height;
+
+function resizeCanvas(){
+    width = window.innerWidth;
+    height = window.innerHeight;
+    HALF_WIDTH = width/2;
+    HALF_HEIGHT = height/2;
+    canvas.setAttribute("width", width);
+    canvas.setAttribute("height", height);
+}
+resizeCanvas();
+
 var context = canvas.getContext("2d");
-canvas.setAttribute("width", width);
-canvas.setAttribute("height", height);
 
 var sphere = new Sphere(0, 0, 0);
 sphere.makePoints();
