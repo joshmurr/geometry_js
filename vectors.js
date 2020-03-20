@@ -66,14 +66,26 @@ class Vec3d{
     }
 
     get magnitude(){
-        return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+        let m = this.magnitudeSquared;
+        if(m == 0) return 0;
+        else return Math.sqrt(m);
+    }
+
+    get magnitudeSquared(){
+        return this.x*this.x + this.y*this.y + this.z*this.z;
     }
 
     normalize(){
         let m = this.magnitude;
-        this.x /= m;
-        this.y /= m;
-        this.z /= m;
+        if(m == 0) {
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+        } else {
+            this.x /= m;
+            this.y /= m;
+            this.z /= m;
+        }
     }
     
     copy(){

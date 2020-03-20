@@ -12,11 +12,10 @@ class Shape{
         this.home = [];
         this.scale = 100;
         this.TMPscale = 1;
-        this.slices = 8;
-        this.segments = 8;
+        this.slices = 32;
+        this.segments = 32;
     }
     set x(val){
-        console.log("Setting x: " + val);
         this._x = val;
     }
     set y(val){
@@ -172,10 +171,6 @@ class Shape{
             if(this.xRotation) p3d = this.rotateX(p3d);
             if(this.yRotation) p3d = this.rotateY(p3d);
             if(this.zRotation) p3d = this.rotateZ(p3d);
-
-            // p3d.x += this._x;
-            // p3d.y += this._y;
-            // p3d.z += this._x;
 
             // ANIMATE TO HOME POINTS
             if(this._animate){
