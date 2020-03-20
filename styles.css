@@ -5,11 +5,29 @@
     font-size: medium;
     text-align: left;
 }
+
+#mobileCaption {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    width: 80%;
+    left: auto;
+    top: auto;
+    transform: translate(10%, -50%);
+    line-height: 1em;
+    background-color: red;
+}
+#mobileCaption > p{
+    text-align: center;
+}
 #menu{
     display: none;
 }
 
 @media only screen and (min-width: 600px){
+    #mobileCaption{
+        display: none;
+    }
     #menu{
         position: absolute;
         display: block;
