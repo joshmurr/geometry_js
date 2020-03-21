@@ -19,10 +19,9 @@ for (var i = 0; i < dim; i++) {
 
 I played with this formula to generate other shapes such as a cube or a cylinder. I didn't know at the time but these are known as _parametric surfaces_ defined by _spherical coordinates_. The general conversion of _spherical to Cartesian_ coordinates is:
 
-```
-x = &rho;sin&phi;cos&theta;
-```
-x = &rho;sin&phi;cos&theta;
+> x = &rho;sin&phi;cos&theta;
+> y = &rho;sin&phi;sin&theta; 
+> z = &rho;cos&theta;
 
 
 ![Torus -> Klein](./img/torus2klein.png)
