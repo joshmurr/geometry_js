@@ -9,7 +9,6 @@ class Torus extends Shape {
 
     makePoints(){
         let x, y, z;
-        
         let s = this.scale * 0.2;
 
         for (var i = 0; i < this._slices+1; i++) {

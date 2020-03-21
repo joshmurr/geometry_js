@@ -12,8 +12,8 @@ class Sphere extends Shape {
                 let v = j * 2 * Math.PI / this._slices;
 
                 x = Math.sin(u) * Math.cos(v);
-                y = Math.cos(u);
-                z = -Math.sin(u) * Math.sin(v);
+                y = Math.sin(u) * Math.sin(v);
+                z = Math.cos(u);
 
                 let p = new Vec3d(x*s, y*s, z*s);
                 this._points.push(p);
