@@ -1,6 +1,8 @@
 # Parametric Surfaces
 
-##[This can be seen and played with here](http://js-geom.now.sh).
+---
+
+## [See the web app here](http://js-geom.now.sh).
 
 ---
 
@@ -81,7 +83,7 @@ for (var i = 0; i < this._slices+1; i++) {
 
 Now that I can comfortably represent different surfaces by the same general formula, I could play with more complex forms like a Klein Bottle. Given that the general formula is the same, this meant that the data structures were identical (same number of vertices per slice, etc.), which meant the rendering was the same for each shape. So I could animate one into the other, by setting a new set of vertices as targets for the current vertices.
 
-![Torus -> Klein](./img/torus2klein.png)
+[![Torus -> Klein](./img/torus2klein.png)](http://js-geom.now.sh/)
 
 The rendering is a simple process of scaling a line drawn to the canvas, based on a predefined _Field of View_ (FOV) and the z-value of the the vertex, also shown to me by Mick Grierson.
 
