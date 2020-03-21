@@ -1,6 +1,8 @@
 # Parametric Surfaces
 
-[This can be seen and played with here](http://js-geom.now.sh).
+##[This can be seen and played with here](http://js-geom.now.sh).
+
+---
 
 This project was to help me learn more about parametric (or algebraic) surfaces. I ended up here after being shown the following algorithm for a sphere by Prof. Mick Grierson while studying on the Creative Computing Msc at the Creative Computing Institute (London) in 2019:
 
