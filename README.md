@@ -25,7 +25,15 @@ for (var i = 0; i < dim; i++) {
 
 I played with this formula to generate other shapes such as a cube or a cylinder. I didn't know at the time but these are known as _parametric surfaces_ defined by _spherical coordinates_. The general conversion of _spherical to Cartesian_ coordinates is:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{array}{l}x&space;=&space;\rho&space;sin&space;(\phi)&space;cos&space;(\theta)\\y&space;=&space;\rho&space;sin&space;(\phi)&space;sin&space;(\theta)\\z&space;=&space;\rho&space;cos&space;(\theta)\end{array}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\begin{array}{l}x&space;=&space;\rho&space;sin&space;(\phi)&space;cos&space;(\theta)\\y&space;=&space;\rho&space;sin&space;(\phi)&space;sin&space;(\theta)\\z&space;=&space;\rho&space;cos&space;(\theta)\end{array}" title="\begin{array}{l}x = \rho sin (\phi) cos (\theta)\\y = \rho sin (\phi) sin (\theta)\\z = \rho cos (\theta)\end{array}" /></a>
+---
+
+x = &rho;sin&phi;cos&theta;
+
+y = &rho;sin&phi;sin&theta;
+
+z = &rho;cos&theta;
+
+---
 
 The next thing to know is the &phi; and &theta; are _parameters_ which are angles defined in terms of &pi; and &rho; is a radius, as in polar coordinates. Re-writing the algorithm for a sphere above into a more general form, we get:
 
@@ -55,7 +63,14 @@ makePoints(){
 
 Much like the general equation for a circle (in terms of _polar_ coordinates) which can be manipulated and rearranged to form new shapes (the [Superformula](https://en.wikipedia.org/wiki/Superformula) being my favourite example of this), the spherical coordinates of a sphere can also be manipulated. This is a Torus:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{array}{l}&space;x&space;=&space;(c&plus;a&space;cos(v))cos(u)\\&space;y&space;=&space;(c&plus;a&space;cos(v))sin(u)\\&space;z&space;=&space;a&space;sin(v)&space;\end{array}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\begin{array}{l}&space;x&space;=&space;(c&plus;a&space;cos(v))cos(u)\\&space;y&space;=&space;(c&plus;a&space;cos(v))sin(u)\\&space;z&space;=&space;a&space;sin(v)&space;\end{array}" title="\begin{array}{l} x = (c+a cos(v))cos(u)\\ y = (c+a cos(v))sin(u)\\ z = a sin(v) \end{array}" /></a>
+---
+x = (c + a\*cos(v))\*cos(u)
+
+y = (c + a\*cos(v))\*sin(u)
+
+z = a\*sin(v)
+
+---
 
 ```javascript
 // TORUS
@@ -100,5 +115,3 @@ I have taken this as far as I can with the rudimentary rendering process. It gli
 [Khan Academy - Parametrizing a Surface](https://www.khanacademy.org/math/multivariable-calculus/integrating-multivariable-functions/surface-parametrization/v/introduction-to-parametrizing-a-surface-with-two-parameters)
 
 [3D Wireframes in SVG](https://prideout.net/blog/svg_wireframes/) - Great to see simple implementations of all I've spoken about. I referenced this code a lot.
-
-[CodeCogs - LaTeX Style Formulae](https://www.codecogs.com/latex/eqneditor.php)
